@@ -4,636 +4,597 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Overfreight Decal Indonesia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
   <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-    :root {
-      --bg-primary:      #0a0c10;
-      --bg-secondary:    #0f1218;
-      --bg-card:         #13171f;
-      --bg-card-hover:   #181d27;
-      --accent-orange:   #f97316;
-      --accent-orange-dim:#c2590f;
-      --accent-yellow:   #fbbf24;
-      --text-primary:    #f1f5f9;
-      --text-secondary:  #94a3b8;
-      --text-muted:      #475569;
-      --border:          #1e2533;
-      --border-accent:   #f9731630;
-      --glow:            0 0 40px #f9731615;
-      --nav-h:           64px;
-      --radius:          16px;
-      --font-display:    clamp(2rem,6vw,4.5rem);
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg:#08090d;
+      --bg2:#0c0e14;
+      --bg3:#10131a;
+      --card:#121620;
+      --accent:#f97316;
+      --accent2:#fbbf24;
+      --accent-dim:#c2590f;
+      --accentA:#f9731618;
+      --accentB:#f9731608;
+      --txt:#f0f4fc;
+      --txt2:#8b9ab5;
+      --txt3:#3d4a5c;
+      --border:#181f2e;
+      --border2:#1e2840;
+      --glow:0 0 60px #f9731612;
+      --nav-h:60px;
+      --r:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--bg);color:var(--txt);
+      font-family:'Inter',sans-serif;
+      min-height:100vh;overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
     }
 
-    /* ── ADS device classes injected by JS ── */
-    /* .ads-iphone | .ads-hp | .ads-hp-jadul | .ads-tablet-ipad |
-       .ads-tablet | .ads-tablet-jadul | .ads-laptop | .ads-pc    */
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+    /* NOISE */
+    body::after{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      opacity:.5;
     }
+    .ads-hp-jadul body::after,.ads-tablet-jadul body::after{display:none;}
 
-    /* noise – hidden on jadul */
-    body::before {
-      content:'';
-      position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events:none; z-index:0; opacity:.4;
+    /* ROAD STRIPE */
+    .road{
+      position:fixed;bottom:0;left:0;right:0;height:2px;z-index:200;
+      background:repeating-linear-gradient(90deg,var(--accent) 0,var(--accent) 36px,transparent 36px,transparent 72px);
+      background-size:72px 2px;
+      animation:road 1.8s linear infinite;opacity:.5;
     }
-    .ads-hp-jadul body::before,
-    .ads-tablet-jadul body::before { display:none; }
+    @keyframes road{to{background-position:-72px 0;}}
+    .ads-hp-jadul .road,.ads-tablet-jadul .road{animation:none;}
 
-    /* road stripe */
-    .road-stripe {
-      position:fixed; bottom:0; left:0; right:0; height:3px;
-      background:repeating-linear-gradient(90deg,var(--accent-orange) 0,var(--accent-orange) 40px,transparent 40px,transparent 80px);
-      background-size:80px 3px;
-      animation:road 2s linear infinite;
-      opacity:.6; z-index:100;
+    /* ADS BADGE */
+    #ads-badge{
+      position:fixed;bottom:12px;right:12px;z-index:300;
+      display:flex;align-items:center;gap:5px;
+      background:rgba(8,9,13,.88);border:1px solid var(--accentA);
+      backdrop-filter:blur(12px);padding:.25rem .65rem;border-radius:100px;
+      font-family:'JetBrains Mono',monospace;font-size:.6rem;
+      color:var(--accent);letter-spacing:.06em;
+      transition:opacity .4s ease;pointer-events:none;
     }
-    @keyframes road { to { background-position:-80px 0; } }
+    #ads-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);}
 
-    /* ─── ADS DEVICE BADGE ─── */
-    #ads-badge {
-      position:fixed; bottom:14px; right:14px; z-index:200;
-      display:flex; align-items:center; gap:6px;
-      background:rgba(10,12,16,.85);
-      border:1px solid var(--border-accent);
-      backdrop-filter:blur(10px);
-      padding:.3rem .7rem; border-radius:100px;
-      font-family:'JetBrains Mono',monospace;
-      font-size:.62rem; color:var(--accent-orange);
-      letter-spacing:.06em; opacity:.7;
-      pointer-events:none;
-      transition:opacity .3s;
-    }
-    #ads-badge::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent-orange); }
-
-    /* ─── NAVBAR ─── */
-    nav {
-      position:fixed; top:0; left:0; right:0; z-index:50;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 2rem; height:var(--nav-h);
-      background:rgba(10,12,16,.85);
-      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    /* ══ NAV ══ */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      height:var(--nav-h);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 2rem;
+      background:rgba(8,9,13,.8);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
     }
-    .nav-logo { display:flex; align-items:center; gap:.75rem; text-decoration:none; }
-    .nav-logo-icon {
-      width:36px; height:36px; border-radius:8px; flex-shrink:0;
-      background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));
-      display:flex; align-items:center; justify-content:center;
-      font-size:1.05rem; font-weight:900; color:#0a0c10;
+    .nav-l{display:flex;align-items:center;gap:.8rem;}
+    .nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;}
+    .nav-icon{
+      width:34px;height:34px;border-radius:8px;flex-shrink:0;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;color:#08090d;
     }
-    .nav-logo-text { font-size:.9rem; font-weight:700; letter-spacing:.02em; line-height:1.2; }
-    .nav-logo-sub  { font-size:.62rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
-    .nav-badge {
-      font-family:'JetBrains Mono',monospace; font-size:.68rem;
-      color:var(--accent-orange); border:1px solid var(--border-accent);
-      padding:.22rem .55rem; border-radius:4px; letter-spacing:.04em;
+    .nav-name{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.01em;line-height:1.1;}
+    .nav-sub{font-size:.58rem;color:var(--txt3);letter-spacing:.07em;text-transform:uppercase;}
+    .nav-r{display:flex;align-items:center;gap:.6rem;}
+    .nav-pill{
+      font-family:'JetBrains Mono',monospace;font-size:.62rem;
+      color:var(--accent);border:1px solid var(--accentA);
+      padding:.18rem .5rem;border-radius:4px;letter-spacing:.04em;
     }
-    /* nav tweak – tablet & hp */
-    .ads-hp .nav-logo-sub,
-    .ads-hp-jadul .nav-logo-sub,
-    .ads-iphone .nav-logo-sub { display:none; }
-    .ads-hp-jadul .nav-badge,
-    .ads-tablet-jadul .nav-badge { display:none; }
-    .ads-iphone nav { padding:0 1.2rem; }
+    .nav-btn{
+      display:inline-flex;align-items:center;gap:.35rem;
+      font-size:.75rem;font-weight:500;color:var(--txt2);
+      padding:.3rem .75rem;border:1px solid var(--border2);
+      border-radius:6px;text-decoration:none;cursor:pointer;
+      background:transparent;font-family:'Inter',sans-serif;
+      transition:all .18s;
+    }
+    .nav-btn:hover{color:var(--txt);border-color:var(--accent);background:var(--accentA);}
+    .ads-hp .nav-sub,.ads-hp-jadul .nav-sub,.ads-iphone .nav-sub{display:none;}
+    .ads-hp-jadul .nav-pill,.ads-tablet-jadul .nav-pill{display:none;}
+    .ads-iphone nav,.ads-hp nav,.ads-hp-jadul nav{padding:0 1rem;}
 
-    /* ─── HERO ─── */
-    .hero {
-      position:relative; min-height:100vh;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      padding:calc(var(--nav-h) + 4rem) 2rem 4rem;
-      text-align:center; z-index:1;
+    /* ══ HERO ══ */
+    .hero{
+      position:relative;min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:calc(var(--nav-h)+5rem) 2rem 5rem;
+      text-align:center;z-index:1;overflow:hidden;
     }
-    .hero-grid {
-      position:absolute; inset:0;
+
+    /* grid bg */
+    .hero-grid{
+      position:absolute;inset:0;
       background-image:
         linear-gradient(var(--border) 1px,transparent 1px),
         linear-gradient(90deg,var(--border) 1px,transparent 1px);
-      background-size:60px 60px; opacity:.3;
-      mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent);
+      background-size:56px 56px;opacity:.25;
+      mask-image:radial-gradient(ellipse 75% 55% at 50% 45%,black,transparent);
     }
-    .ads-hp-jadul .hero-grid,
-    .ads-tablet-jadul .hero-grid { display:none; }
+    .ads-hp-jadul .hero-grid,.ads-tablet-jadul .hero-grid{display:none;}
 
-    .hero-glow {
-      position:absolute; top:30%; left:50%;
-      transform:translate(-50%,-50%);
-      width:600px; height:300px;
-      background:radial-gradient(ellipse,#f9731620 0%,transparent 70%);
-      pointer-events:none;
+    /* floating orbs */
+    .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);}
+    .orb1{width:500px;height:500px;background:#f9731614;top:-10%;left:-10%;animation:orb1 12s ease-in-out infinite alternate;}
+    .orb2{width:400px;height:400px;background:#fbbf2410;top:40%;right:-8%;animation:orb2 15s ease-in-out infinite alternate;}
+    .orb3{width:300px;height:300px;background:#f9731608;bottom:5%;left:20%;animation:orb3 10s ease-in-out infinite alternate;}
+    @keyframes orb1{to{transform:translate(40px,30px);}}
+    @keyframes orb2{to{transform:translate(-30px,40px);}}
+    @keyframes orb3{to{transform:translate(20px,-20px);}}
+    .ads-hp-jadul .orb,.ads-tablet-jadul .orb{display:none;}
+
+    /* eyebrow */
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.45rem;
+      font-family:'JetBrains Mono',monospace;font-size:.68rem;
+      color:var(--accent);letter-spacing:.14em;text-transform:uppercase;
+      margin-bottom:1.6rem;padding:.38rem 1rem;
+      border:1px solid var(--accentA);border-radius:100px;
+      background:rgba(249,115,22,.05);
     }
-    .ads-hp-jadul .hero-glow,
-    .ads-tablet-jadul .hero-glow { display:none; }
-
-    /* Eyebrow */
-    .hero-eyebrow {
-      display:inline-flex; align-items:center; gap:.5rem;
-      font-family:'JetBrains Mono',monospace; font-size:.72rem;
-      color:var(--accent-orange); letter-spacing:.12em; text-transform:uppercase;
-      margin-bottom:1.5rem; padding:.4rem 1rem;
-      border:1px solid var(--border-accent); border-radius:100px;
-      background:rgba(249,115,22,.06);
+    .eyebrow::before{
+      content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);
+      animation:pulse 2.2s ease-in-out infinite;
     }
-    .hero-eyebrow::before {
-      content:''; width:6px; height:6px; border-radius:50%;
-      background:var(--accent-orange);
-      animation:pulse 2s ease-in-out infinite;
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.7);}}
+    .ads-hp-jadul .eyebrow::before,.ads-tablet-jadul .eyebrow::before{animation:none;}
+
+    /* title */
+    .hero-h1{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2.2rem,7vw,5rem);
+      font-weight:800;line-height:1.04;letter-spacing:-.04em;
+      margin-bottom:.6rem;
     }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.4; transform:scale(.8); }
+    .hero-h1 .gr{
+      background:linear-gradient(120deg,var(--accent) 0%,var(--accent2) 60%,#fff 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .ads-hp-jadul .hero-eyebrow::before,
-    .ads-tablet-jadul .hero-eyebrow::before { animation:none; }
-
-    /* Title */
-    .hero-title {
-      font-size:var(--font-display);
-      font-weight:900; line-height:1.05;
-      letter-spacing:-.03em; margin-bottom:.5rem;
+    .hero-desc{
+      font-size:clamp(.85rem,2vw,1rem);
+      color:var(--txt2);margin-bottom:2.8rem;letter-spacing:.01em;max-width:540px;line-height:1.7;
     }
-    .hero-title .highlight {
-      background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    .ads-iphone .hero-h1{font-size:2.3rem;}
+    .ads-hp .hero-h1,.ads-hp-jadul .hero-h1{font-size:2rem;}
+    .ads-pc .hero,.ads-laptop .hero{padding-left:8rem;padding-right:8rem;}
+    .ads-tablet-ipad .hero{padding-left:4rem;padding-right:4rem;}
+
+    /* CTA */
+    .cta-group{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:.8rem;}
+    .btn-main{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.8rem 1.8rem;
+      background:linear-gradient(135deg,var(--accent),var(--accent-dim));
+      color:#fff;font-weight:600;font-size:.88rem;
+      border:none;border-radius:10px;cursor:pointer;
+      letter-spacing:.01em;font-family:'Inter',sans-serif;
+      box-shadow:0 4px 24px rgba(249,115,22,.3);
+      transition:all .2s ease;text-decoration:none;
     }
-    .hero-subtitle {
-      font-size:clamp(.88rem,2vw,1.05rem);
-      color:var(--text-secondary); margin-bottom:3rem; letter-spacing:.01em;
+    .btn-main:hover:not(.dis){transform:translateY(-2px);box-shadow:0 8px 32px rgba(249,115,22,.45);}
+    .btn-main:active:not(.dis){transform:translateY(0);}
+    .btn-main.dis{
+      background:var(--card);color:var(--txt3);cursor:not-allowed;
+      box-shadow:none;border:1px solid var(--border2);
     }
-
-    /* ── iPhone specific hero ── */
-    .ads-iphone .hero { padding-top:calc(var(--nav-h) + 5rem); }
-    .ads-iphone .hero-title { font-size:2.4rem; }
-    .ads-iphone .hero-subtitle { font-size:.88rem; }
-
-    /* ── HP tweaks ── */
-    .ads-hp .hero-title,
-    .ads-hp-jadul .hero-title { font-size:2rem; }
-
-    /* ── PC/Laptop: wider layout ── */
-    .ads-pc .hero, .ads-laptop .hero { padding-left:6rem; padding-right:6rem; }
-
-    /* ── Tablet iPad ── */
-    .ads-tablet-ipad .hero { padding-left:4rem; padding-right:4rem; }
-
-    /* ─── README CARD ─── */
-    .readme-wrapper {
-      width:100%; max-width:760px;
-      margin:0 auto 3rem; position:relative; z-index:1;
+    .btn-sec{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.8rem 1.4rem;
+      background:transparent;color:var(--txt2);font-weight:500;font-size:.85rem;
+      border:1px solid var(--border2);border-radius:10px;cursor:pointer;
+      font-family:'Inter',sans-serif;transition:all .18s;text-decoration:none;
     }
-    .ads-pc .readme-wrapper,
-    .ads-laptop .readme-wrapper { max-width:880px; }
-    .ads-tablet-ipad .readme-wrapper { max-width:680px; }
-    .ads-hp .readme-wrapper,
-    .ads-hp-jadul .readme-wrapper,
-    .ads-iphone .readme-wrapper { max-width:100%; }
+    .btn-sec:hover:not(.dis){color:var(--txt);border-color:var(--accent);background:var(--accentA);}
+    .btn-sec.dis{color:var(--txt3);cursor:not-allowed;opacity:.5;}
+    .btn-arr{transition:transform .18s;}
+    .btn-main:hover:not(.dis) .btn-arr{transform:translateX(3px);}
+    .warn{
+      display:none;align-items:center;gap:.45rem;
+      font-size:.72rem;color:var(--accent2);
+      font-family:'JetBrains Mono',monospace;letter-spacing:.02em;
+    }
+    .warn.show{display:flex;animation:fadein .2s ease;}
+    @keyframes fadein{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+    .warn::before{content:'⚠';}
+    .ads-iphone .btn-main,.ads-iphone .btn-sec{width:100%;max-width:300px;justify-content:center;}
 
-    .readme-card {
-      background:var(--bg-card);
-      border:1px solid var(--border); border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--glow),0 4px 24px rgba(0,0,0,.4);
+    /* STATS */
+    .stats{
+      display:flex;align-items:center;justify-content:center;
+      gap:2.5rem;margin-top:3.5rem;
+      padding-top:2rem;border-top:1px solid var(--border);
+      position:relative;z-index:1;
+    }
+    .stat{display:flex;flex-direction:column;align-items:center;gap:.15rem;}
+    .stat-v{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent);}
+    .stat-l{font-size:.64rem;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;}
+    .stat-sep{width:1px;height:30px;background:var(--border);}
+    .ads-hp .stats,.ads-iphone .stats{gap:1.2rem;}
+    .ads-hp .stat-v,.ads-iphone .stat-v{font-size:1.1rem;}
+    .ads-pc .stat-v,.ads-laptop .stat-v{font-size:1.6rem;}
+
+    /* ══ SECTION WRAPPER ══ */
+    .section{
+      position:relative;z-index:1;
+      width:100%;max-width:800px;
+      margin:0 auto;padding:0 2rem;
+    }
+    .ads-pc .section,.ads-laptop .section{max-width:960px;}
+    .ads-hp .section,.ads-iphone .section,.ads-hp-jadul .section{padding:0 1rem;}
+
+    /* ══ README CARD ══ */
+    .readme-section{padding:4rem 2rem 2rem;}
+    .readme-card{
+      background:var(--card);
+      border:1px solid var(--border);border-radius:var(--r);
+      overflow:hidden;box-shadow:var(--glow),0 8px 32px rgba(0,0,0,.5);
       text-align:left;
     }
-    .ads-hp-jadul .readme-card { box-shadow:none; }
-
-    .readme-topbar {
-      display:flex; align-items:center; gap:.6rem;
-      padding:.85rem 1.2rem;
-      background:var(--bg-secondary); border-bottom:1px solid var(--border);
+    .ads-hp-jadul .readme-card{box-shadow:none;}
+    .r-topbar{
+      display:flex;align-items:center;gap:.55rem;
+      padding:.8rem 1.1rem;
+      background:var(--bg2);border-bottom:1px solid var(--border);
     }
-    .readme-dot { width:11px; height:11px; border-radius:50%; }
-    .readme-dot.red    { background:#ff5f57; }
-    .readme-dot.yellow { background:#ffbd2e; }
-    .readme-dot.green  { background:#28c840; }
-    .ads-hp-jadul .readme-dot,
-    .ads-tablet-jadul .readme-dot { width:8px; height:8px; }
-
-    .readme-filename {
-      margin-left:.4rem; font-family:'JetBrains Mono',monospace;
-      font-size:.7rem; color:var(--text-muted); letter-spacing:.04em;
+    .dot{width:10px;height:10px;border-radius:50%;}
+    .dot.r{background:#ff5f57;}.dot.y{background:#ffbd2e;}.dot.g{background:#28c840;}
+    .r-fn{
+      margin-left:.35rem;font-family:'JetBrains Mono',monospace;
+      font-size:.66rem;color:var(--txt3);letter-spacing:.04em;
     }
-    .readme-body { padding:2rem 2.2rem; min-height:100px; }
-    .ads-hp .readme-body,
-    .ads-iphone .readme-body,
-    .ads-hp-jadul .readme-body { padding:1.2rem 1rem; }
-
-    .readme-loading {
-      display:flex; align-items:center; gap:.75rem;
-      color:var(--text-muted); font-family:'JetBrains Mono',monospace; font-size:.8rem;
+    .r-body{padding:1.8rem 2rem;}
+    .ads-hp .r-body,.ads-iphone .r-body,.ads-hp-jadul .r-body{padding:1.1rem .9rem;}
+    .r-loading{
+      display:flex;align-items:center;gap:.7rem;
+      color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:.76rem;
     }
-    .readme-spinner {
-      width:16px; height:16px;
-      border:2px solid var(--border); border-top-color:var(--accent-orange);
-      border-radius:50%; animation:spin .8s linear infinite;
+    .r-spin{
+      width:14px;height:14px;border:2px solid var(--border);
+      border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;
     }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .ads-hp-jadul .readme-spinner { animation:none; border-top-color:var(--text-muted); }
-
-    /* Markdown */
-    .md-content h1 { font-size:1.5rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.3rem; }
-    .md-content h2 { font-size:1rem; font-weight:700; color:var(--accent-orange); margin:1.4rem 0 .5rem; }
-    .md-content p  { font-size:.88rem; line-height:1.75; color:var(--text-secondary); margin-bottom:.75rem; }
-    .md-content em { color:var(--text-muted); font-style:italic; }
-    .md-content strong { color:var(--text-primary); font-weight:600; }
-    .md-content ul,
-    .md-content ol  { padding-left:1.4rem; margin-bottom:.75rem; }
-    .md-content li  { font-size:.86rem; line-height:1.7; color:var(--text-secondary); margin-bottom:.2rem; }
-    .md-content hr  { border:none; border-top:1px solid var(--border); margin:1.4rem 0; }
-    .md-content code {
-      font-family:'JetBrains Mono',monospace; font-size:.76rem;
-      background:rgba(249,115,22,.08); border:1px solid var(--border-accent);
-      color:var(--accent-orange); padding:.1rem .35rem; border-radius:4px;
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .ads-hp-jadul .r-spin{animation:none;border-top-color:var(--txt3);}
+    /* md styles */
+    .md h1{font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:800;margin-bottom:.3rem;letter-spacing:-.02em;}
+    .md h2{font-size:.95rem;font-weight:700;color:var(--accent);margin:1.4rem 0 .45rem;}
+    .md p{font-size:.86rem;line-height:1.78;color:var(--txt2);margin-bottom:.7rem;}
+    .md em{color:var(--txt3);font-style:italic;}
+    .md strong{color:var(--txt);font-weight:600;}
+    .md ul,.md ol{padding-left:1.3rem;margin-bottom:.7rem;}
+    .md li{font-size:.84rem;line-height:1.7;color:var(--txt2);margin-bottom:.2rem;}
+    .md hr{border:none;border-top:1px solid var(--border);margin:1.3rem 0;}
+    .md code{
+      font-family:'JetBrains Mono',monospace;font-size:.74rem;
+      background:var(--accentA);border:1px solid #f9731622;
+      color:var(--accent);padding:.1rem .32rem;border-radius:3px;
     }
-    .ads-hp-jadul .md-content h1 { font-size:1.2rem; }
-    .ads-hp-jadul .md-content p,
-    .ads-hp-jadul .md-content li { font-size:.82rem; line-height:1.6; }
 
-    /* ─── CTA ─── */
-    .cta-section {
-      position:relative; z-index:1;
-      display:flex; flex-direction:column;
-      align-items:center; gap:.7rem; margin-bottom:1rem;
+    /* ══ OTOS SECTION ══ */
+    .otos-section{padding:2rem 2rem 4rem;}
+    .sec-eyebrow{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-family:'JetBrains Mono',monospace;font-size:.62rem;
+      color:var(--txt3);letter-spacing:.12em;text-transform:uppercase;
+      margin-bottom:1rem;
     }
-    .btn-primary {
-      display:inline-flex; align-items:center; gap:.6rem;
-      padding:.85rem 2rem;
-      background:linear-gradient(135deg,var(--accent-orange),var(--accent-orange-dim));
-      color:#fff; font-family:'Inter',sans-serif; font-size:.9rem; font-weight:600;
-      border:none; border-radius:10px; cursor:pointer;
-      letter-spacing:.01em; transition:all .2s ease;
-      box-shadow:0 4px 20px rgba(249,115,22,.3);
+    .sec-eyebrow::before{content:'#';color:var(--accent);}
+    .otos-card{
+      background:var(--card);
+      border:1px solid var(--border);border-radius:var(--r);
+      overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.35);
+      text-align:left;
     }
-    .btn-primary:hover:not(.disabled) { transform:translateY(-2px); box-shadow:0 8px 28px rgba(249,115,22,.4); }
-    .btn-primary:active:not(.disabled) { transform:translateY(0); }
-    .btn-primary.disabled {
-      background:var(--bg-card); color:var(--text-muted);
-      cursor:not-allowed; box-shadow:none; border:1px solid var(--border);
+    .otos-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1rem 1.4rem;
+      background:var(--bg2);border-bottom:1px solid var(--border);
+      cursor:pointer;user-select:none;
     }
-    .btn-arrow { transition:transform .2s ease; }
-    .btn-primary:hover:not(.disabled) .btn-arrow { transform:translateX(3px); }
-
-    /* iPhone: full width button */
-    .ads-iphone .btn-primary { width:100%; max-width:320px; justify-content:center; padding:1rem 1.5rem; font-size:.95rem; }
-
-    /* HP jadul: no hover transform */
-    .ads-hp-jadul .btn-primary:hover:not(.disabled) { transform:none; }
-
-    /* tablet: wider button */
-    .ads-tablet-ipad .btn-primary,
-    .ads-tablet .btn-primary { min-width:260px; justify-content:center; }
-
-    .btn-warning {
-      display:none; align-items:center; gap:.5rem;
-      font-size:.76rem; color:var(--accent-yellow);
-      font-family:'JetBrains Mono',monospace; letter-spacing:.02em;
+    .otos-header-l{display:flex;align-items:center;gap:.6rem;}
+    .otos-icon{
+      width:28px;height:28px;border-radius:6px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-size:.7rem;font-weight:900;color:#08090d;flex-shrink:0;
     }
-    .btn-warning.show { display:flex; animation:fadeIn .2s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
-    .btn-warning::before { content:'⚠'; font-size:.82rem; }
-    .ads-hp-jadul .btn-warning.show { animation:none; }
+    .otos-title{font-size:.82rem;font-weight:700;letter-spacing:.01em;}
+    .otos-sub{font-size:.64rem;color:var(--txt3);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;}
+    .otos-toggle{
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:var(--txt3);border:1px solid var(--border2);
+      padding:.2rem .55rem;border-radius:5px;
+      transition:all .2s;
+    }
+    .otos-header:hover .otos-toggle{color:var(--accent);border-color:var(--accentA);}
+    .otos-body{
+      max-height:0;overflow:hidden;
+      transition:max-height .4s cubic-bezier(.4,0,.2,1);
+    }
+    .otos-body.open{max-height:2000px;}
+    .otos-inner{padding:1.6rem 1.8rem;}
+    .ads-hp .otos-inner,.ads-iphone .otos-inner,.ads-hp-jadul .otos-inner{padding:1rem .9rem;}
+    .ads-hp-jadul .otos-body{transition:none;}
 
-    /* ─── STATS BAR ─── */
-    .stats-bar {
-      position:relative; z-index:1;
-      display:flex; align-items:center; justify-content:center;
-      gap:2.5rem; padding:1.5rem 2rem; margin-top:4rem;
+    /* ══ FOOTER ══ */
+    footer{
+      position:relative;z-index:1;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:.8rem;
+      padding:1.3rem 2rem;
       border-top:1px solid var(--border);
+      font-family:'JetBrains Mono',monospace;
+      font-size:.62rem;color:var(--txt3);letter-spacing:.04em;
     }
-    .stat-item { display:flex; flex-direction:column; align-items:center; gap:.2rem; }
-    .stat-value { font-family:'JetBrains Mono',monospace; font-size:1.3rem; font-weight:600; color:var(--accent-orange); }
-    .stat-label { font-size:.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; }
-    .stat-divider { width:1px; height:32px; background:var(--border); }
-    .ads-hp .stats-bar,
-    .ads-iphone .stats-bar { gap:1.2rem; padding:1rem; }
-    .ads-hp .stat-value,
-    .ads-iphone .stat-value { font-size:1rem; }
-    .ads-hp-jadul .stats-bar { gap:.8rem; }
-    .ads-hp-jadul .stat-value { font-size:.9rem; }
-    .ads-pc .stats-bar,
-    .ads-laptop .stats-bar { gap:4rem; }
-    .ads-pc .stat-value,
-    .ads-laptop .stat-value { font-size:1.5rem; }
-
-    /* ─── FOOTER ─── */
-    footer {
-      position:relative; z-index:1; text-align:center;
-      padding:1.4rem; border-top:1px solid var(--border);
-      font-size:.7rem; color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; letter-spacing:.04em;
+    footer span{color:var(--accent);}
+    .footer-links{display:flex;gap:1rem;}
+    .footer-links a{
+      color:var(--txt3);text-decoration:none;
+      transition:color .15s;font-size:.62rem;
     }
-    footer span { color:var(--accent-orange); }
+    .footer-links a:hover{color:var(--accent);}
+    .ads-hp footer,.ads-iphone footer{padding:1rem;flex-direction:column;align-items:flex-start;gap:.5rem;}
 
-    /* ─── REDUCED MOTION ─── */
-    @media (prefers-reduced-motion:reduce) {
-      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
     }
   </style>
 </head>
 <body>
 
-  <div class="road-stripe"></div>
-  <div id="ads-badge">ADS · Mendeteksi...</div>
+<div class="road"></div>
+<div id="ads-badge">ADS · Mendeteksi...</div>
 
-  <!-- NAVBAR -->
-  <nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-l">
     <a class="nav-logo" href="#">
-      <div class="nav-logo-icon">OF</div>
+      <div class="nav-icon">OF</div>
       <div>
-        <div class="nav-logo-text">Overfreight Decal</div>
-        <div class="nav-logo-sub">Indonesia Community</div>
+        <div class="nav-name">Overfreight Decal</div>
+        <div class="nav-sub">Indonesia Community</div>
       </div>
     </a>
-    <div class="nav-badge" id="nav-version">v1.0.0</div>
-  </nav>
+  </div>
+  <div class="nav-r">
+    <button class="nav-btn" id="nav-license-btn" onclick="navTo('license')">Lisensi</button>
+    <div class="nav-pill" id="nav-ver">v1.0.0</div>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
 
-    <div class="hero-eyebrow">Indonesia Overfreight Community</div>
-    <h1 class="hero-title">Gudang ID <span class="highlight">Decal</span><br/>Overfreight Indonesia</h1>
-    <p class="hero-subtitle">Kumpulan ID decal resmi dari anggota komunitas, lengkap dengan informasi kreator.</p>
+  <div class="eyebrow">Indonesia Overfreight Community</div>
+  <h1 class="hero-h1">Gudang ID <span class="gr">Decal</span><br/>Overfreight Indonesia</h1>
+  <p class="hero-desc" id="hero-desc">Kumpulan ID decal resmi dari anggota komunitas, lengkap dengan informasi kreator.</p>
 
-    <!-- README CARD -->
-    <div class="readme-wrapper">
-      <div class="readme-card">
-        <div class="readme-topbar">
-          <div class="readme-dot red"></div>
-          <div class="readme-dot yellow"></div>
-          <div class="readme-dot green"></div>
-          <span class="readme-filename">Informasi</span>
+  <div class="cta-group">
+    <button id="btn-id" class="btn-main dis" onclick="navTo('id')">
+      Lihat Daftar ID Decal <span class="btn-arr">→</span>
+    </button>
+    <button id="btn-tos" class="btn-sec" onclick="toggleOTOS()">
+      Baca OTOS
+    </button>
+  </div>
+  <div id="warn-id" class="warn"></div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-v" id="stat-id">—</span><span class="stat-l">Total ID</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-v" id="stat-cr">—</span><span class="stat-l">Kreator</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-v">ID</span><span class="stat-l">Bahasa</span></div>
+  </div>
+</section>
+
+<!-- README -->
+<div class="section readme-section">
+  <div class="readme-card">
+    <div class="r-topbar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="r-fn">README.md</span>
+    </div>
+    <div class="r-body">
+      <div id="rm-load" class="r-loading"><div class="r-spin"></div>Memuat dokumen...</div>
+      <div id="rm-content" class="md" style="display:none;"></div>
+      <div id="rm-err" style="display:none;color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:.76rem;">Gagal memuat README.md.</div>
+    </div>
+  </div>
+</div>
+
+<!-- OTOS -->
+<div class="section otos-section" id="otos-section">
+  <div class="sec-eyebrow">ODI Terms Of Service</div>
+  <div class="otos-card">
+    <div class="otos-header" onclick="toggleOTOS()">
+      <div class="otos-header-l">
+        <div class="otos-icon">T</div>
+        <div>
+          <div class="otos-title">ODI Terms Of Service (OTOS)</div>
+          <div class="otos-sub">tos.md · Versi 1.0</div>
         </div>
-        <div class="readme-body">
-          <div id="readme-loading" class="readme-loading">
-            <div class="readme-spinner"></div>
-            Memuat dokumen...
-          </div>
-          <div id="readme-content" class="md-content" style="display:none;"></div>
-          <div id="readme-error" style="display:none;color:var(--text-muted);font-size:.8rem;font-family:'JetBrains Mono',monospace;">
-            Gagal memuat README.md.
-          </div>
-        </div>
+      </div>
+      <div class="otos-toggle" id="otos-toggle-btn">Buka ▾</div>
+    </div>
+    <div class="otos-body" id="otos-body">
+      <div class="otos-inner">
+        <div id="otos-load" class="r-loading"><div class="r-spin"></div>Memuat OTOS...</div>
+        <div id="otos-content" class="md" style="display:none;"></div>
+        <div id="otos-err" style="display:none;color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:.76rem;">Gagal memuat tos.md.</div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- CTA -->
-    <div class="cta-section">
-      <button id="btn-id" class="btn-primary disabled" onclick="handleNav()">
-        Lihat Daftar ID Decal
-        <span class="btn-arrow">→</span>
-      </button>
-      <div id="btn-warning" class="btn-warning">
-        Halaman daftar ID belum tersedia saat ini.
-      </div>
-    </div>
+<!-- FOOTER -->
+<footer>
+  <span>&copy; 2025 Indonesia Overfreight Community</span>
+  <div class="footer-links">
+    <a href="#" onclick="navTo('license')">Lisensi</a>
+    <a href="#otos-section" onclick="toggleOTOS()">OTOS</a>
+    <a href="#" onclick="navTo('id')">Daftar ID</a>
+  </div>
+</footer>
 
-    <!-- STATS -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <span class="stat-value" id="stat-id">—</span>
-        <span class="stat-label">Total ID</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-value" id="stat-creator">—</span>
-        <span class="stat-label">Kreator</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-value">ID</span>
-        <span class="stat-label">Bahasa</span>
-      </div>
-    </div>
-  </section>
+<script>
+/* ═══════════════════════════════
+   ADS v1.0 — Automatic Device System
+═══════════════════════════════ */
+const ADS=(()=>{
+  const ua=navigator.userAgent,W=window.innerWidth,DPR=window.devicePixelRatio||1;
+  const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+  const isIOS=/iP(hone|od|ad)/i.test(ua),isAndroid=/Android/i.test(ua);
+  const isMacOS=/Macintosh|Mac OS X/i.test(ua)&&!isIOS;
+  const isIPad=/iPad/i.test(ua)||(isMacOS&&isTouch),isIPhone=/iPhone/i.test(ua);
+  const avr=(()=>{const m=ua.match(/Android (\d+)/i);return m?parseInt(m[1]):99;})();
+  const isLowAndroid=isAndroid&&avr<9,isLowDPR=DPR<1.5&&W<480;
+  const isMob=W<=480,isTab=W>480&&W<=1024,isDesk=W>1024;
+  const cores=navigator.hardwareConcurrency||4,isLowPow=cores<=2;
+  let d='pc';
+  if(isIPhone||(isIOS&&!isIPad)){d='iphone';}
+  else if(isIPad){d=(isLowPow||avr<9)?'tablet-jadul':'tablet-ipad';}
+  else if(isAndroid&&isTab){d=(isLowAndroid||isLowPow)?'tablet-jadul':'tablet';}
+  else if(isTouch&&isMob){d=(isLowAndroid||isLowDPR||isLowPow)?'hp-jadul':'hp';}
+  else if(isDesk){d=(isMacOS||('getBattery' in navigator))?'laptop':'pc';}
+  else if(isTab&&!isTouch){d='laptop';}
+  document.documentElement.classList.add('ads-'+d);
+  const lbl={'iphone':'📱 iPhone','hp':'📱 HP','hp-jadul':'📱 HP Jadul','tablet-ipad':'📲 iPad','tablet':'📲 Tablet','tablet-jadul':'📲 Tablet Jadul','laptop':'💻 Laptop','pc':'🖥️ PC'};
+  const isLite=d==='hp-jadul'||d==='tablet-jadul';
+  return{device:d,isLite,label:lbl[d]||d};
+})();
+document.getElementById('ads-badge').textContent='ADS · '+ADS.label;
+if(ADS.isLite){const s=document.querySelector('.road');if(s)s.style.animation='none';}
+setTimeout(()=>{const b=document.getElementById('ads-badge');if(b)b.style.opacity='0';},4000);
 
-  <footer>
-    &copy; 2025 <span>Indonesia Overfreight Community</span> — Semua hak cipta milik kreator masing-masing.
-  </footer>
+/* ═══════════════════════════════
+   CONFIG
+═══════════════════════════════ */
+let CFG=null;
+async function loadConfig(){
+  try{
+    const r=await fetch('./config.json');
+    if(!r.ok)throw new Error();
+    CFG=await r.json();
+  }catch(e){console.warn('[ODI] config.json tidak ditemukan.');}
+  applyConfig();
+}
+function applyConfig(){
+  const ver=CFG?.site?.version||'1.0.0';
+  document.getElementById('nav-ver').textContent='v'+ver;
 
-  <script>
-  /* ═══════════════════════════════════════════════════════
-     AUTOMATIC DEVICE SYSTEM (ADS) v1.0
-     Deteksi otomatis device → apply class ke <html>
-     Supported: iphone | hp | hp-jadul | tablet-ipad |
-                tablet | tablet-jadul | laptop | pc
-  ═══════════════════════════════════════════════════════ */
-  const ADS = (() => {
-    const ua  = navigator.userAgent;
-    const W   = window.innerWidth;
-    const H   = window.innerHeight;
-    const DPR = window.devicePixelRatio || 1;
+  const desc=CFG?.site?.description;
+  if(desc)document.getElementById('hero-desc').textContent=desc;
 
-    // Touch support
-    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  // pages toggle
+  const idCfg=CFG?.pages?.id;
+  const btnId=document.getElementById('btn-id');
+  if(idCfg?.enabled===true){btnId.classList.remove('dis');}
+  else{btnId.classList.add('dis');}
 
-    // OS detections
-    const isIOS     = /iP(hone|od|ad)/i.test(ua);
-    const isAndroid = /Android/i.test(ua);
-    const isMacOS   = /Macintosh|Mac OS X/i.test(ua) && !isIOS;
-    const isWindows = /Windows NT/i.test(ua);
-
-    // Model hints
-    const isIPad    = /iPad/i.test(ua) || (isMacOS && isTouch); // iPad in desktop mode
-    const isIPhone  = /iPhone/i.test(ua);
-
-    // Low-end / jadul heuristics
-    // - Android < 9, or very low DPR + small screen, or old UA hints
-    const androidVer = (() => {
-      const m = ua.match(/Android (\d+)/i);
-      return m ? parseInt(m[1]) : 99;
-    })();
-    const isLowEndAndroid = isAndroid && androidVer < 9;
-    const isLowEndDPR     = DPR < 1.5 && W < 480;
-
-    // Core width brackets
-    const isMobileWidth  = W <= 480;
-    const isNarrow       = W <= 390;   // iPhone SE / small Android
-    const isTabletWidth  = W > 480 && W <= 1024;
-    const isDesktopWidth = W > 1024;
-
-    // Has hardware concurrency (cores) info?
-    const cores = navigator.hardwareConcurrency || 4;
-    const isLowPower = cores <= 2;
-
-    // ── Classify ──
-    let device = 'pc';
-
-    if (isIPhone || (isIOS && !isIPad)) {
-      device = 'iphone';
-    } else if (isIPad) {
-      if (isLowPower || androidVer < 9) {
-        device = 'tablet-jadul';
-      } else {
-        device = 'tablet-ipad';
-      }
-    } else if (isAndroid && isTabletWidth) {
-      if (isLowEndAndroid || isLowPower) {
-        device = 'tablet-jadul';
-      } else {
-        device = 'tablet';
-      }
-    } else if (isTouch && isMobileWidth) {
-      if (isLowEndAndroid || isLowEndDPR || isLowPower) {
-        device = 'hp-jadul';
-      } else {
-        device = 'hp';
-      }
-    } else if (isDesktopWidth) {
-      // Laptop vs PC: no touch, desktop width
-      // Laptop hint: macOS (MacBook), or Windows + battery API available
-      const hasBattery = 'getBattery' in navigator;
-      if (isMacOS || hasBattery) {
-        device = 'laptop';
-      } else {
-        device = 'pc';
-      }
-    } else if (isTabletWidth && !isTouch) {
-      device = 'laptop';
-    }
-
-    // ── Apply class to <html> ──
-    document.documentElement.classList.add('ads-' + device);
-
-    // ── Badge update ──
-    const labels = {
-      'iphone':       '📱 iPhone',
-      'hp':           '📱 HP',
-      'hp-jadul':     '📱 HP Jadul',
-      'tablet-ipad':  '📲 iPad',
-      'tablet':       '📲 Tablet',
-      'tablet-jadul': '📲 Tablet Jadul',
-      'laptop':       '💻 Laptop',
-      'pc':           '🖥️ PC'
-    };
-
-    // Lite mode flag
-    const isLite = device === 'hp-jadul' || device === 'tablet-jadul';
-
-    return { device, isLite, label: labels[device] || device };
-  })();
-
-  // Update badge
-  document.getElementById('ads-badge').textContent = 'ADS · ' + ADS.label;
-
-  // Lite mode: disable road stripe animation
-  if (ADS.isLite) {
-    const stripe = document.querySelector('.road-stripe');
-    if (stripe) stripe.style.animation = 'none';
+  // license nav btn
+  const licCfg=CFG?.pages?.license;
+  const btnLic=document.getElementById('nav-license-btn');
+  if(licCfg?.enabled===false){
+    btnLic.style.opacity='.4';btnLic.style.cursor='not-allowed';
+    btnLic.onclick=(e)=>{e.preventDefault();};
   }
 
-  /* ═══════════════════════════════════════════════════════
-     CONFIG LOADER
-  ═══════════════════════════════════════════════════════ */
-  let CFG = null;
+  // stats
+  const decals=CFG?.decals||[];
+  const tot=decals.length;
+  const cr=[...new Set(decals.map(d=>d.discord||d.roblox).filter(Boolean))].length;
+  document.getElementById('stat-id').textContent=tot>0?tot:'—';
+  document.getElementById('stat-cr').textContent=cr>0?cr:'—';
+}
 
-  async function loadConfig() {
-    try {
-      const res = await fetch('./config.json');
-      if (!res.ok) throw new Error('config not found');
-      CFG = await res.json();
-      applyConfig();
-    } catch (e) {
-      console.warn('[Config] Gagal memuat config.json, menggunakan default.');
-      applyConfig(true);
+/* ═══════════════════════════════
+   NAV TRANSITION
+═══════════════════════════════ */
+let warnT;
+function navTo(page){
+  const cfg=CFG?.pages?.[page];
+  if(!cfg){return;}
+  if(cfg.enabled===false){
+    const wEl=page==='id'?document.getElementById('warn-id'):null;
+    if(wEl){
+      wEl.textContent=cfg.disabled_message||'Halaman belum tersedia.';
+      wEl.classList.remove('show');void wEl.offsetWidth;wEl.classList.add('show');
+      clearTimeout(warnT);warnT=setTimeout(()=>wEl.classList.remove('show'),3500);
     }
+    return;
   }
+  // smooth out
+  const dur=CFG?.transitions?.duration_ms||300;
+  document.body.style.transition=`opacity ${dur}ms ease`;
+  document.body.style.opacity='0';
+  setTimeout(()=>{window.location.href=cfg.path;},dur);
+}
 
-  function applyConfig(useFallback = false) {
-    // Version badge
-    const ver = CFG?.site?.version || '1.0.0';
-    document.getElementById('nav-version').textContent = 'v' + ver;
+/* ═══════════════════════════════
+   README LOADER
+═══════════════════════════════ */
+async function loadReadme(){
+  const ld=document.getElementById('rm-load'),ct=document.getElementById('rm-content'),er=document.getElementById('rm-err');
+  try{
+    const r=await fetch('./README.md');
+    if(!r.ok)throw new Error();
+    ct.innerHTML=marked.parse(await r.text());
+    ld.style.display='none';ct.style.display='block';
+  }catch(e){ld.style.display='none';er.style.display='block';}
+}
 
-    // Pages toggle — dari config.json, bukan dari cek file
-    const idPage = CFG?.pages?.id;
-    const btn    = document.getElementById('btn-id');
-
-    if (idPage && idPage.enabled === true) {
-      btn.classList.remove('disabled');
-    } else {
-      btn.classList.add('disabled');
-    }
-
-    // Stats dari decals
-    const decals   = CFG?.decals || [];
-    const total    = decals.length;
-    const creators = [...new Set(decals.map(d => d.discord || d.roblox).filter(Boolean))].length;
-
-    document.getElementById('stat-id').textContent      = total    > 0 ? total    : '—';
-    document.getElementById('stat-creator').textContent = creators > 0 ? creators : '—';
+/* ═══════════════════════════════
+   OTOS LOADER + TOGGLE
+═══════════════════════════════ */
+let otosLoaded=false;
+async function loadOTOS(){
+  if(otosLoaded)return;
+  const ld=document.getElementById('otos-load'),ct=document.getElementById('otos-content'),er=document.getElementById('otos-err');
+  try{
+    const r=await fetch('./tos.md');
+    if(!r.ok)throw new Error();
+    ct.innerHTML=marked.parse(await r.text());
+    ld.style.display='none';ct.style.display='block';
+    otosLoaded=true;
+  }catch(e){ld.style.display='none';er.style.display='block';}
+}
+function toggleOTOS(){
+  const body=document.getElementById('otos-body');
+  const btn=document.getElementById('otos-toggle-btn');
+  const isOpen=body.classList.contains('open');
+  if(isOpen){
+    body.classList.remove('open');btn.textContent='Buka ▾';
+  }else{
+    body.classList.add('open');btn.textContent='Tutup ▴';
+    loadOTOS();
+    setTimeout(()=>document.getElementById('otos-section').scrollIntoView({behavior:'smooth',block:'start'}),100);
   }
+}
 
-  /* ═══════════════════════════════════════════════════════
-     README LOADER
-  ═══════════════════════════════════════════════════════ */
-  async function loadReadme() {
-    const loading = document.getElementById('readme-loading');
-    const content = document.getElementById('readme-content');
-    const error   = document.getElementById('readme-error');
-    try {
-      const res = await fetch('./README.md');
-      if (!res.ok) throw new Error('not found');
-      const text = await res.text();
-      content.innerHTML = marked.parse(text);
-      loading.style.display = 'none';
-      content.style.display = 'block';
-    } catch (e) {
-      loading.style.display = 'none';
-      error.style.display   = 'block';
-    }
-  }
+/* ═══════════════════════════════
+   PAGE FADE IN
+═══════════════════════════════ */
+document.body.style.opacity='0';
+document.body.style.transition='opacity .3s ease';
+window.addEventListener('load',()=>{requestAnimationFrame(()=>{document.body.style.opacity='1';});});
 
-  /* ═══════════════════════════════════════════════════════
-     NAVIGASI
-  ═══════════════════════════════════════════════════════ */
-  let warnTimer;
-  function handleNav() {
-    const btn     = document.getElementById('btn-id');
-    const warning = document.getElementById('btn-warning');
-    const msg     = CFG?.pages?.id?.disabled_message || 'Halaman daftar ID belum tersedia saat ini.';
-
-    if (btn.classList.contains('disabled')) {
-      warning.textContent = '';
-      // rebuild agar re-trigger animasi
-      warning.classList.remove('show');
-      void warning.offsetWidth;
-      warning.textContent = msg;
-      warning.classList.add('show');
-      clearTimeout(warnTimer);
-      warnTimer = setTimeout(() => warning.classList.remove('show'), 3500);
-      return;
-    }
-
-    const path = CFG?.pages?.id?.path || './id.html';
-    window.location.href = path;
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     INIT
-  ═══════════════════════════════════════════════════════ */
-  loadConfig();
-  loadReadme();
-
-  // Sembunyikan badge ADS setelah 4 detik
-  setTimeout(() => {
-    const badge = document.getElementById('ads-badge');
-    if (badge) badge.style.opacity = '0';
-  }, 4000);
-  </script>
+/* INIT */
+loadConfig();
+loadReadme();
+</script>
 </body>
 </html>
