@@ -1,28 +1,85 @@
 {
-  "_comment": "Overfreight Decal Indonesia — Config Utama",
+  "_comment": "Overfreight Decal Indonesia — Config Utama. SEMUA pengaturan website diatur di sini.",
 
   "site": {
     "name": "Overfreight Decal Indonesia",
+    "short_name": "ODI",
     "version": "1.0.0",
-    "language": "id"
+    "language": "id",
+    "description": "Gudang ID decal resmi komunitas Indonesia Overfreight. Semua ID dikumpulkan dari anggota komunitas dan dilengkapi informasi kreator aslinya."
   },
 
   "pages": {
+    "index": {
+      "enabled": true,
+      "path": "./index.html",
+      "label": "Beranda"
+    },
     "id": {
       "enabled": false,
       "path": "./id.html",
       "label": "Daftar ID Decal",
       "disabled_message": "Halaman daftar ID belum tersedia saat ini."
+    },
+    "license": {
+      "enabled": false,
+      "path": "./license.html",
+      "label": "Buka License Web ODI",
+      "disabled_message": "Halaman License Web ODI belum tersedia untuk saat ini."
+    }
+  },
+
+  "id_page": {
+    "title": "Daftar ID Decal",
+    "subtitle": "Temukan dan salin ID decal favoritmu dari komunitas Indonesia Overfreight.",
+    "feed_label": "Untuk Kamu",
+    "empty_message": "Belum ada ID decal yang terdaftar saat ini.",
+    "features": {
+      "copy_on_click": {
+        "enabled": true,
+        "toast_message": "ID berhasil disalin!"
+      },
+      "like": {
+        "enabled": false,
+        "coming_soon": true,
+        "coming_soon_message": "Fitur like akan hadir setelah pengumuman resmi dari ODI."
+      },
+      "comment": {
+        "enabled": false,
+        "coming_soon": true,
+        "coming_soon_message": "Fitur komentar akan hadir setelah pengumuman resmi dari ODI."
+      },
+      "repost": {
+        "enabled": false,
+        "coming_soon": true,
+        "coming_soon_message": "Fitur repost akan hadir setelah pengumuman resmi dari ODI."
+      },
+      "bookmark": {
+        "enabled": false,
+        "coming_soon": true,
+        "coming_soon_message": "Fitur bookmark akan hadir setelah pengumuman resmi dari ODI."
+      }
     }
   },
 
   "decals": [
     {
-      "id": "-",
-      "nama": "Lorem Ipsum",
-      "discord": "@-",
-      "roblox": "@-",
-      "preview": "./assets/preview-placeholder.png"
+      "id": "123456789",
+      "nama": "Hino 500 - Red Express",
+      "deskripsi": "Livery merah dengan aksen putih, cocok untuk truk jarak jauh.",
+      "discord": "@ContohUser",
+      "roblox": "ContohRoblox",
+      "preview": "./assets/preview-placeholder.png",
+      "tanggal": "2025-01-01"
+    },
+    {
+      "id": "987654321",
+      "nama": "Scania R - Night Runner",
+      "deskripsi": "Livery gelap dengan strip neon biru, estetik untuk perjalanan malam.",
+      "discord": "@ContohUser2",
+      "roblox": "ContohRoblox2",
+      "preview": "./assets/preview-placeholder.png",
+      "tanggal": "2025-01-02"
     }
   ],
 
@@ -31,5 +88,10 @@
     "lite_mode_on_low_end": true,
     "reduce_animation_on_jadul": true,
     "force_lite": false
+  },
+
+  "transitions": {
+    "smooth_change": true,
+    "duration_ms": 300
   }
 }
