@@ -16,7 +16,7 @@
       "label": "Beranda"
     },
     "id": {
-      "enabled": false,
+      "enabled": true,
       "path": "./id.html",
       "label": "Daftar ID Decal",
       "disabled_message": "Halaman daftar ID belum tersedia saat ini."
@@ -71,15 +71,6 @@
       "roblox": "ContohRoblox",
       "preview": "./assets/preview-placeholder.png",
       "tanggal": "2025-01-01"
-    },
-    {
-      "id": "987654321",
-      "nama": "Scania R - Night Runner",
-      "deskripsi": "Livery gelap dengan strip neon biru, estetik untuk perjalanan malam.",
-      "discord": "@ContohUser2",
-      "roblox": "ContohRoblox2",
-      "preview": "./assets/preview-placeholder.png",
-      "tanggal": "2025-01-02"
     }
   ],
 
