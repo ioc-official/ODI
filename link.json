@@ -1,0 +1,34 @@
+{
+  "_comment": "ODI Social Links — config khusus link komunitas Indonesia Overfreight Community",
+  "community_name": "Indonesia Overfreight Community",
+  "tagline": "Cek pengumuman resmi ODI di sini.",
+  "links": [
+    {
+      "id": "discord",
+      "title": "Discord Server",
+      "description": "Server utama komunitas Indonesia Overfreight. Diskusi, pengumuman, dan submit livery.",
+      "url": "https://discord.gg/placeholder",
+      "logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v11/icons/discord.svg",
+      "color": "#5865F2",
+      "badge": "Komunitas Utama"
+    },
+    {
+      "id": "whatsapp-group",
+      "title": "WhatsApp Group",
+      "description": "Grup WhatsApp anggota aktif Indonesia Overfreight Community.",
+      "url": "https://chat.whatsapp.com/placeholder",
+      "logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v11/icons/whatsapp.svg",
+      "color": "#25D366",
+      "badge": "Group"
+    },
+    {
+      "id": "whatsapp-channel",
+      "title": "WhatsApp Channel",
+      "description": "Channel resmi ODI untuk pengumuman, update decal, dan info komunitas.",
+      "url": "https://whatsapp.com/channel/placeholder",
+      "logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v11/icons/whatsapp.svg",
+      "color": "#25D366",
+      "badge": "Channel Resmi"
+    }
+  ]
+}
