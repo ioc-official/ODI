@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar ID Decal — ODI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro-screen">
+  <div class="intro-logo">
+    <div class="intro-icon">OF</div>
+    <div class="intro-name">ODI</div>
+  </div>
+  <div class="intro-bar-wrap"><div class="intro-bar" id="intro-bar"></div></div>
+  <div class="intro-sub">Daftar ID Decal</div>
+</div>
+
+<!-- PAGE OVERLAY -->
+<div id="page-overlay"></div>
+<div id="ads-badge">ADS · Mendeteksi...</div>
+<div id="copy-toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-l">
+    <a class="nav-logo" href="./index.html" onclick="navTo('index');return false;">
+      <div class="nav-icon-box">OF</div>
+      <div class="nav-name">ODI</div>
+    </a>
+    <div class="nav-label">Daftar ID</div>
+  </div>
+  <div class="nav-r">
+    <button id="sound-btn" class="snd-btn" title="Toggle suara">🔊</button>
+    <button class="nav-btn" onclick="navTo('index')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/></svg>
+      Beranda
+    </button>
+    <button class="nav-btn nav-btn-license" onclick="navTo('license')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Lisensi
+    </button>
+    <div class="nav-ver" id="nav-ver">v1.0.0</div>
+  </div>
+</nav>
+
+<!-- APP LAYOUT -->
+<div class="app-wrap">
+
+  <!-- LEFT SIDEBAR icon only -->
+  <aside class="sidebar-left">
+    <button class="s-btn" data-tip="Beranda" onclick="navTo('index')">
+      <svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/></svg>
+    </button>
+    <button class="s-btn active" data-tip="Daftar ID">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+    </button>
+    <button class="s-btn nav-btn-license" data-tip="Lisensi" onclick="navTo('license')">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    </button>
+    <div class="s-sep"></div>
+    <button class="s-btn" data-tip="ODI Links" onclick="openSheet()">🔗</button>
+    <button class="s-btn" data-tip="Tentang ODI" onclick="document.getElementById('widget-about')?.scrollIntoView({behavior:'smooth',block:'center'})">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </button>
+    <div class="s-sep"></div>
+    <button class="s-btn snd-btn" data-tip="Suara">🔊</button>
+  </aside>
+
+  <!-- MAIN FEED -->
+  <main class="feed-main">
+
+    <div class="feed-header">
+      <div class="feed-title">Untuk Kamu</div>
+      <div class="feed-count" id="feed-count">— ID</div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-bar">
+        <span class="search-ico">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <input type="text" id="search-input" class="search-input" placeholder="Cari nama, ID, tier, atau kreator..." autocomplete="off"/>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="fpill active" data-filter="all">Semua <span class="fpill-count">0</span></button>
+      <button class="fpill" data-filter="kereta">🚃 Kereta <span class="fpill-count">0</span></button>
+      <button class="fpill" data-filter="lokomotif">🚂 Lokomotif <span class="fpill-count">0</span></button>
+    </div>
+
+    <div class="feed-list" id="feed-list">
+      <div class="feed-loading"><div class="feed-spin"></div>Memuat data...</div>
+    </div>
+
+    <div class="feed-foot">
+      <span>&copy; 2025 Indonesia Overfreight Community</span>
+      <span>Semua hak cipta milik kreator masing-masing.</span>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar-right">
+
+    <div class="widget">
+      <div class="w-head">
+        <div class="w-title">ODI Links</div>
+        <div class="w-sub">Cek pengumuman di Discord IOC</div>
+      </div>
+      <div class="w-body" id="links-widget-body">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--txt3);">Memuat...</div>
+      </div>
+    </div>
+
+    <div class="widget" id="widget-about">
+      <div class="w-head">
+        <div class="w-title">Tentang ODI</div>
+        <div class="w-sub">Overfreight Decal Indonesia</div>
+      </div>
+      <div class="w-body">
+        <div class="i-row"><span class="i-lbl">Total ID</span><span class="i-val stat-id">—</span></div>
+        <div class="i-row"><span class="i-lbl">Kreator</span><span class="i-val stat-cr">—</span></div>
+        <div class="i-row"><span class="i-lbl">Versi</span><span class="i-val" id="side-ver-r">1.0.0</span></div>
+        <div class="i-row"><span class="i-lbl">Bahasa</span><span class="i-val">Indonesia</span></div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- MOBILE FAB -->
+<button class="mob-fab" onclick="openSheet()" title="ODI Links">🔗</button>
+
+<!-- MOBILE SHEET -->
+<div class="mob-overlay" id="mob-overlay"></div>
+<div class="mob-sheet" id="mob-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-ttl">ODI Links</div>
+  <div id="sheet-links-body">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--txt3);">Memuat...</div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
