@@ -7,7 +7,13 @@ Selamat datang di gudang ID decal komunitas **Indonesia Overfreight**.
 
 Halaman ini berisi kumpulan ID decal Roblox livery kereta api Indonesia (KAI) yang dikumpulkan dari berbagai anggota komunitas. Perlu diketahui bahwa seluruh ID yang tercantum di sini **bukan milik Indonesia Overfreight Community**, melainkan milik masing-masing pembuatnya.
 
-Setiap ID yang terdaftar dilengkapi dengan informasi kreator, mencakup **username Roblox** dan **username Discord** sebagai bentuk penghargaan kepada pemilik aslinya.
+Setiap ID yang terdaftar dilengkapi dengan informasi kreator, mencakup **username Roblox** dan **username Discord** sebagai bentuk penghargaan kepada pemilik aslinya. Satu kreator dapat memiliki lebih dari satu ID decal.
+
+---
+
+**Tier Konten:**
+- **Kereta** — Livery gerbong penumpang, KRL, dan rangkaian kereta
+- **Lokomotif** — Livery kepala lokomotif diesel dan elektrik
 
 ---
 
